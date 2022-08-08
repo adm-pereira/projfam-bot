@@ -19,7 +19,8 @@ api = tweepy.API(authenticator, wait_on_rate_limit=True)
 # Profile bio
 
 bio = "Tweeto barras do Prof a cada 6 horas.\nPara receberes uma pic surpresa menciona @ProjFam6"
-api.update_profile(description = bio)
+github = "https://github.com/adm-pereira/projfam-bot"
+api.update_profile(description = bio, url = github)
 
 # -------------------------------
 # Constants
@@ -27,6 +28,7 @@ api.update_profile(description = bio)
 
 # -------------------------------
 
+print("Started scheduling!")
 
 def job():
     # select random tweet
