@@ -18,15 +18,40 @@ api = tweepy.API(authenticator, wait_on_rate_limit=True)
 
 # Profile bio
 
-bio = "Tweeto barras do Prof a cada 6 horas.\nPara receberes uma pic surpresa menciona @ProjFam6"
+bio = "Tweeto barras do Prof a cada 6 horas.\nPara receberes uma pic surpresa menciona @ProjFam6\n---em desenvolvimento---"
 github = "https://github.com/adm-pereira/projfam-bot"
 api.update_profile(description = bio, url = github)
 
-# -------------------------------
-# Constants
+# Lyrics read
+
+def read_lyrics_file():
+    quote_count = 0
+
+    lyrics_file = open('lyrics.txt', 'r', encoding='utf-8').read().splitlines()
+
+    all_quotes = []
+
+    quote = ""
+
+    for line in lyrics_file:
+
+        if line.startswith('-'):
+            
+            if quote != "":
+                
+                if len(quote) > 280:
+                    print("----------" + str(len(quote)) + "/280 in\n")
+                    print(quote)
+                else:
+                    all_quotes.append(quote)
+            quote = ""
+        else:
+            quote = quote + line + "\n"
+
+    return all_quotes
 
 
-# -------------------------------
+# Scheduling
 
 print("Started scheduling!")
 
