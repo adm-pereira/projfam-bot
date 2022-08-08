@@ -2,6 +2,7 @@ import tweepy
 import urllib.request
 import schedule
 import time
+from random import randrange
 
 # Initialize
 
@@ -38,30 +39,35 @@ def read_lyrics_file():
         if line.startswith('-'):
             
             if quote != "":
-                
                 if len(quote) > 280:
                     print("----------" + str(len(quote)) + "/280 in\n")
                     print(quote)
                 else:
                     all_quotes.append(quote)
+
             quote = ""
+
         else:
             quote = quote + line + "\n"
 
     return all_quotes
 
+all_quotes = read_lyrics_file()
 
 # Scheduling
 
 print("Started scheduling!")
 
 def job():
-    # select random tweet
-    # api.update_status()
-    print("something")
+    # select random quote and tweet
+    quote = all_quotes[randrange(len(all_quotes))]
+    api.update_status(quote)
+    print(quote)
 
+job()
 schedule.every(6).hours.do(job)
-
+# for testing purposes
+# schedule.every(30).seconds.do(job)
 
 while True:
     schedule.run_pending()
